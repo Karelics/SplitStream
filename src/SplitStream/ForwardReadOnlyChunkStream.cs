@@ -15,6 +15,7 @@ namespace MicroKnights.IO.Streams
         private StreamChunk _chunk = null;
         private bool _finished = false;
         private int _position = 0;
+        private bool _disposed = false;
 
         public ForwaredReadOnlyChunkStream()
         : this(SplitStreamOptions.Default)
@@ -106,6 +107,7 @@ namespace MicroKnights.IO.Streams
         public override long Position { get; set; }
 
         public bool IsFinised => _finished;
+        public bool IsDisposed => _disposed;
 
         #endregion
 
@@ -118,6 +120,7 @@ namespace MicroKnights.IO.Streams
                 throw new ObjectDisposedException("Stream not read to end");
             }
             base.Dispose(disposing);
+            _disposed = true;
         }
 
         #endregion
